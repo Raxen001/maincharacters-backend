@@ -1,2 +1,3 @@
 1.added boiler for msql
 2.added express 
+3.added postgres and .env
