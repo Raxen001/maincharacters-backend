@@ -13,6 +13,7 @@ app.post("/createUser", async (req, res) => {
     bank_id: "123",
     wallet_id: "0xff",
     username: "noumaan",
+    password: "123456",
   });
 
   return res.json({
