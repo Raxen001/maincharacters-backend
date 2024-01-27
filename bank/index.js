@@ -1,35 +1,35 @@
-// Import the mysql2 library
+const express = require('express');
 const mysql = require('mysql2');
 
-// Create a connection to the database
-const connection = mysql.createConnection({
-  host: 'ip', 
-  user: 'mysql_user',
+const app = express();
+const port = 3000;
+
+const pool = mysql.createPool({
+  host: 'ip',
+  user: 'user',
   password: 'password',
   database: 'database',
+  connectionLimit: 10, 
 });
 
-// Connect to the database
-connection.connect((err) => {
-  if (err) {
-    console.error('Error connecting to the database:', err.message);
-    return;
-  }
-  console.log('Connected to the database');
+app.use((req, res, next) => {
+  req.mysql = pool;
+  next();
 });
 
-// Sample request: Fetch data from a table
-connection.query('SELECT * FROM your_table_name', (err, results, fields) => {
-  if (err) {
-    console.error('Error executing query:', err.message);
-    return;
-  }
-  console.log('Query results:', results);
-
-  connection.end((err) => {
+app.get('/printall', (req, res) => {
+  const sql = 'SELECT * FROM BANK';
+  req.mysql.query(sql, (err, results, fields) => {
     if (err) {
-      console.error('Error closing connection:', err.message);
+      console.error('Error executing query:', err.message);
+      res.status(500).send('Internal Server Error');
+      return;
     }
-    console.log('Connection closed');
+    res.json(results);
   });
+});
+
+
+app.listen(port, () => {
+  console.log(`Server is running at http://localhost:${port}`);
 });
