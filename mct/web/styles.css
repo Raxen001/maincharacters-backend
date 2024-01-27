@@ -1,0 +1,106 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 20px;
+  }
+  
+  h1 {
+    text-align: center;
+    font-size: 24px;
+    margin-bottom: 20px;
+  }
+  
+  .contract-details {
+    border: 1px solid #eee;
+    padding: 10px;
+    margin-bottom: 20px;
+  }
+  
+  .contract-details ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  .contract-details li {
+    margin-bottom: 5px;
+  }
+  
+  .functions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+  }
+  
+  .balanceOf, .transfer {
+    flex: 1;
+    border: 1px solid #eee;
+    padding: 10px;
+  }
+  
+  .balanceOf h3, .transfer h3 {
+    font-size: 18px;
+    margin-bottom: 5px;
+  }
+  
+  .balanceOf label, .transfer label {
+    display: block;
+    margin-bottom: 5px;
+  }
+  
+  .balanceOf input, .transfer input {
+    width: 100%;
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+  }
+  
+  .transfer input[type="number"] {
+    width: 50%;
+  }
+  
+  .balanceOf button, .transfer button {
+    background-color: #4CAF50;
+    color: white;
+    padding: 5px 10px;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+  }
+  
+  .balanceOf button:hover, .transfer button:hover {
+    background-color: #388E3C;
+  }
+  
+  #balanceResult, #transferResult {
+    font-style: italic;
+    margin-top: 5px;
+  }
+  
+  #balanceResult.error, #transferResult.error {
+    color: red;
+  }
+  
+  #balanceResult.success, #transferResult.success {
+    color: green;
+  }
+
+  .connectButton {
+    background-color: #4CAF50;
+    color: white;
+}
+
+.disconnectButton {
+    background-color: #f44336;
+    color: white;
+}
+
+.disconnectButton:disabled {
+  background-color: #ddd;
+  color: #aaa;
+  cursor: not-allowed;
+}
+
+.button-container {
+  text-align: center;
+  margin-bottom: 20px;
+}
