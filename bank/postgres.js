@@ -19,15 +19,16 @@ const config = {
     host: process.env.DB_HOST,
     port: process.env.DB_PORT,
     database: process.env.DB_DATABASE,
+    
     ssl: {
-        rejectUnauthorized: true,
+        rejectUnauthorized: false,
         ca: process.env.DB_SSL_CERT,
     },
 };
 
 const client = new pg.Client(config);
 
-app.get('/maincharactors', (req, res) => {
+app.get('/mc', (req, res) => {
     client.connect(function (err) {
         if (err) {
             console.error('Error connecting to the database:', err);
@@ -35,7 +36,7 @@ app.get('/maincharactors', (req, res) => {
             return;
         }
 
-        client.query("SELECT * from maincharactors", [], function (err, result) {
+        client.query("SELECT * from user_data;", [], function (err, result) {
             if (err) {
                 console.error('Error querying the database:', err);
                 res.status(500).json({ error: 'Internal Server Error' });
