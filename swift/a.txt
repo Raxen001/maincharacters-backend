@@ -1,0 +1,12 @@
+//summa to add data to schema
+app.post('/person', async (req, res) => {
+  const { name, id,wallet } = req.body;
+
+  try {
+    const person = new Person({ name, age });
+    await person.save();
+    res.status(201).json(person);
+  } catch (error) {
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+});
