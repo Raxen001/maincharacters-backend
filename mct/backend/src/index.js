@@ -25,7 +25,7 @@ app.post("/create", async (req, res) => {
   });
 });
 
-app.get("/verify", async(req, res) => {
+app.post("/verify", async(req, res) => {
   pass = req.body.password
   wallet_id = req.body.wallet_id
   actual_pass = await User.findOne({'wallet_id': wallet_id}, 'password').exec();
@@ -42,7 +42,8 @@ app.get("/verify", async(req, res) => {
   }
 })
 
-app.get("/isuser", async (req, res) => {
+app.post("/isuser", async (req, res) => {
+  console.log(req.body)
   const wallet_id =  req.body.wallet_id
   const id = await User.exists({wallet_id: wallet_id})
   if(id !== null ){
@@ -52,7 +53,6 @@ app.get("/isuser", async (req, res) => {
       }
     )
   } 
-  
   else{
     res.send(
       {
