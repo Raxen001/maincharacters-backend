@@ -31,7 +31,7 @@ const checkUserExistence = async (req, res, next) => {
   }
 
   try {
-    const userExists = await User.find({ bank_id, wallet_id });
+    const userExists = await User.exists({ bank_id, wallet_id });
 
     if (userExists) {
       return res.status(409).json({ error: "User already exists" });
