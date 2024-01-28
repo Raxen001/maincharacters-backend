@@ -65,7 +65,7 @@ app.post("/create", checkUserExistence, async (req, res) => {
 
 
 
-app.get("/verify", async(req, res) => {
+app.post("/verify", async(req, res) => {
   pass = req.body.password
   wallet_id = req.body.wallet_id
   actual_pass = await User.findOne({'wallet_id': wallet_id}, 'password').exec();
@@ -82,26 +82,32 @@ app.get("/verify", async(req, res) => {
   }
 })
 
-app.get("/isuser", async (req, res) => {
+app.post("/isuser", async (req, res) => {
   const wallet_id =  req.body.wallet_id
-  const id = await User.exists({wallet_id: wallet_id})
-  if(id !== null ){
-    res.send(
-      {
-        flag: true
+  try{
+    const id = await User.exists({wallet_id: wallet_id})
+    if(id !== null ){
+      res.send(
+        {
+          flag: true
+        }
+        )
+      } 
+      else{
+        res.send(
+          {
+            flag: false
+          }
+          )
+        }
       }
-    )
-  } 
-else{
-    res.send(
-      {
-        flag: false
+      catch (error) {
+        console.error("Error finding user:", error);
+        res.status(500).json({ error: "Internal Server Error" });
       }
-    )
-  }
 })
 
-app.get("/finduser", async (req, res) => {
+app.post("/finduser", async (req, res) => {
   const wallet_id = req.query.wallet_id; 
   try {
     const user = await User.findOne({ wallet_id }, "username");
