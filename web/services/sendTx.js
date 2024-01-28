@@ -2,11 +2,11 @@ const { ThirdwebSDK } = require("@thirdweb-dev/sdk");
 const { secretKey, contractAddress, privateKey } = require("../constants.js");
 const { formatEther } = require("ethers/lib/utils.js");
 
-const sdk = ThirdwebSDK.fromPrivateKey(privateKey, "mumbai", {
-  secretKey,
-});
-
 const sendTx = async function (to, amount) {
+  const sdk = ThirdwebSDK.fromPrivateKey(privateKey, "mumbai", {
+    secretKey,
+  });
+
   const contract = await sdk.getContract(contractAddress);
 
   const tx = await contract.call("transfer", [to, amount], {

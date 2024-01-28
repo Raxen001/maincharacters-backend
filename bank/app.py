@@ -21,6 +21,7 @@ conn = psycopg2.connect(
 cur = conn.cursor()
 
 
+
 def check_balance(bank_id):
     cur.execute('SELECT balance FROM user_data WHERE user_id = %s ', (bank_id,))
     return cur.fetchone()[0]
@@ -37,8 +38,8 @@ def credit():
     """
     req = flask.request.get_json()
     print(req)
-    FROM = req['from']
-    TO = req['to']
+    FROM = req['to']
+    TO = req['from']
     AMOUNT = req['amount']
     if check_balance(FROM) >= AMOUNT:
         cur.execute(
@@ -62,8 +63,8 @@ def debit():
     """
     req = flask.request.get_json()
     print(req)
-    FROM = req['from']
-    TO = req['to']
+    FROM = req['to']
+    TO = req['from']
     AMOUNT = req['amount']
     if check_balance(TO) >= AMOUNT:
         cur.execute(
@@ -75,6 +76,19 @@ def debit():
     conn.commit()
     return "Debited successfully"
 
+@app.route('/all_users', methods=['GET'])
+def all_users():
+    cur.execute('SELECT * FROM user_data')
+    # Remember to handle potential query errors
+    results = cur.fetchall()
+    all_users = []
+    for row in results:
+        all_users.append({
+            "bank_id": row[0],
+            "username": row[1],  # Assuming username is in the second column
+            "balance": float(row[2])  # Assuming balance is in the third column
+        })
+    return flask.jsonify({'users': all_users})
 
 if __name__ == "__main__":
     app.run(host='0.0.0.0', port=5000, debug=True)
