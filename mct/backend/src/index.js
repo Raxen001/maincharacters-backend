@@ -30,6 +30,10 @@ const checkUserExistence = async (req, res, next) => {
   }
 };
 
+app.get("/hello", (req, res) => {
+  res.send("Hello World!");
+});
+
 app.post("/create", checkUserExistence, async (req, res) => {
   const { bank_id, wallet_id, username, password } = req.body;
 
@@ -86,7 +90,7 @@ app.post("/isuser", async (req, res) => {
 });
 
 app.post("/finduser", async (req, res) => {
-  const wallet_id = req.query.wallet_id;
+  const wallet_id = req.body.wallet_id;
   try {
     const user = await User.findOne({ wallet_id }, "username");
     if (user && user.username) {

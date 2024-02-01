@@ -1,8 +1,7 @@
 const { ThirdwebSDK } = require("@thirdweb-dev/sdk");
 
 const sdk = new ThirdwebSDK("mumbai", {
-  secretKey:
-    "GMDGXcv94FMrhTPxyk9ES4SbJEgTSy9Sj332OJki4B18S52mLLKNUkYYZNem94gkEICQLkRe8Pg6pyNLE5TGuA",
+  secretKey: {},
 });
 
 // const runEvents = async function () {

@@ -10,16 +10,16 @@ const listenToEvents = async function () {
   // listen to latest events
   contract.events.listenToAllEvents(async (event) => {
     console.log("Transfer event: ", formatEther(event.data.value._hex));
-    const response = await fetch(piURL, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        // Add any additional headers if required
-      },
-      body: JSON.stringify({
-        amount: formatEther(event.data.value._hex),
-      }),
-    });
+    // const response = await fetch(piURL, {
+    //   method: "POST",
+    //   headers: {
+    //     "Content-Type": "application/json",
+    //     // Add any additional headers if required
+    //   },
+    //   body: JSON.stringify({
+    //     amount: formatEther(event.data.value._hex),
+    //   }),
+    // });
     console.log(response);
   });
   // return Number(latestEvent[0].data.value._hex);
